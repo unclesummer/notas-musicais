@@ -1,0 +1,15 @@
+site_name: Notas Musicais
+repo_url: https://github.com/unclesummer/notas-musicais
+repo_name: unclesummer/notas-musicais
+
+
+theme:
+  name: material
+  language: pt-BR
+
+
+plugins: 
+- mkdocstrings:
+    handlers:
+      python:
+        paths: [Notas]
