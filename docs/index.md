@@ -1,17 +1,45 @@
-# Welcome to MkDocs
+# Notas Musicais
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+# Como usar?
 
-## Commands
+Voce pode chamar as escalas via linha de comando. Por exemplo:
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+```bash
+poetry run escalas
+```
 
-## Project layout
+Retornando os graus e as notas correspondentes a essa escala:
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+```
+┏━━━┳━━━━┳━━━━━┳━━━━┳━━━┳━━━━┳━━━━━┓
+┃ I ┃ II ┃ III ┃ IV ┃ V ┃ VI ┃ VII ┃
+┡━━━╇━━━━╇━━━━━╇━━━━╇━━━╇━━━━╇━━━━━┩
+│ F │ G  │ A   │ A# │ C │ D  │ E   │
+└───┴────┴─────┴────┴───┴────┴─────┘
+```
+### Alteracao da tonica da escala
+
+O primeiro parametro do CLI é a tronica da escala que deseja exibir. Desta forma, voce pode alterar a escala retonada. Por exempo, a escala de 'F#''
+
+```bash
+poetry run escalas F#
+```
+
+## Alteração na tonalidade da escala
+
+Voce pode alterar a tonalidade da escala tambem! Esse é o segundo parametro da linha de comando. Por exemplo a escala de 'C#' maior:
+
+```bash
+poetry run escalas C# maior
+```
+
+Resultando em:
+
+```
+┏━━━━┳━━━━┳━━━━━┳━━━━┳━━━━┳━━━━┳━━━━━┓
+┃ I  ┃ II ┃ III ┃ IV ┃ V  ┃ VI ┃ VII ┃
+┡━━━━╇━━━━╇━━━━━╇━━━━╇━━━━╇━━━━╇━━━━━┩
+│ F# │ G# │ A#  │ B  │ C# │ D# │ F   │
+└────┴────┴─────┴────┴────┴────┴─────┘
+
+```
