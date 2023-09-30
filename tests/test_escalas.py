@@ -5,7 +5,7 @@ Arrange - Act - Assert!
 Arrumar - Agir - Garantir!
 """
 
-from pytest import Mark, raises
+from pytest import mark, raises
 
 from notas_musicais import ESCALAS, NOTAS, escala
 
@@ -41,15 +41,18 @@ def test_deve_retornar_um_erro_dizendo_que_a_escala_nao_existe():
         escala(tonica, tonalidade)
         assert mensagem_de_erro == error.value.args[0]
 
-@Mark.parametrize(
-        'tonica,esperado', 
+@mark.parametrize(
+        'tonica, tonalidade, esperado', 
         [
-            {'C', ['C', 'D', 'E', 'F', 'G', 'A', 'B']},
-            {'C#', ['C#', 'D#', 'F', 'F#', 'G#', 'A#', 'C']},
-            {'F', ['F', 'G', 'A', 'A#', 'C', 'D', 'E']},
+            {'C', 'maior', ['C', 'D', 'E', 'F', 'G', 'A', 'B']},
+            {'C#', 'maior', ['C#', 'D#', 'F', 'F#', 'G#', 'A#', 'C']},
+            {'F', 'maior',['F', 'G', 'A', 'A#', 'C', 'D', 'E']},
+            {'C', 'menor' ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#']},
+            {'C#', 'menor' ['C#', 'D#', 'E', 'F#', 'G#', 'A', 'B']},
+            {'F', 'menor' ['F', 'G', 'G#', 'A#', 'C', 'C#', 'D#']},
         ],
 )
-def test_deve_retornar_notas_corretas(tonica, esperado):
+def test_deve_retornar_notas_corretas(tonica, tonalidade, esperado):
     resultado = escala(tonica, 'maior')
     assert resultado['notas'] == esperado
 
