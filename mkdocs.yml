@@ -8,8 +8,12 @@ theme:
   language: pt-BR
 
 
+
+watch:
+  - notas_musicais
+
 plugins: 
 - mkdocstrings:
     handlers:
       python:
-        paths: [Notas]
+        paths: [notas_musicais]
