@@ -19,3 +19,6 @@ jobs:
 
       - name: Instalar dependencias do projeto
         run: poetry install --without doc
+
+      - name: Rodar os testes
+        run: poetry run task test
