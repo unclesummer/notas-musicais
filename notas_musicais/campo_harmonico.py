@@ -1,9 +1,11 @@
+"""Módulo responsável pela criação de campos harmônicos."""
 from notas_musicais.acordes import triade
 from notas_musicais.escalas import escala
 
+
 def _triade_na_escala(nota, notas_da_escala):
     """
-    Saber se as notas de um acorde estao na escala.
+    Saber se as notas de um acorde estão na escala.
 
     Examples:
         >>> _triade_na_escala('C', ['C', 'D', 'E', 'F', 'G', 'A', 'B'])
@@ -14,6 +16,7 @@ def _triade_na_escala(nota, notas_da_escala):
         'B°'
     """
     tonica, terca, quinta = triade(nota, 'maior')
+
     match terca in notas_da_escala, quinta in notas_da_escala:
         case True, True:
             return tonica
@@ -21,7 +24,8 @@ def _triade_na_escala(nota, notas_da_escala):
             return f'{tonica}m'
         case False, False:
             return f'{tonica}°'
-        
+
+
 def _converte_graus(cifra, grau):
     """
     Converte o grau relativo a cifra.
@@ -34,41 +38,41 @@ def _converte_graus(cifra, grau):
         >>> _converte_graus('C', 'I')
         'I'
         >>> _converte_graus('Cm', 'I')
-        'I'
+        'i'
         >>> _converte_graus('C°', 'I')
-        'I°'
+        'i°'
     """
     if 'm' in cifra:
         return grau.lower()
-    elif '°' in cifra:
+
+    if '°' in cifra:
         return f'{grau.lower()}°'
-    
+
     return grau
 
-def campo_harmonico(tonica: str, tonalidade: str) -> dict[str, list[str]]:
 
+def campo_harmonico(tonica: str, tonalidade: str) -> dict[str, list[str]]:
     """
-    Gera uma campo harmonico com base em uma tonica e uma tonalidade.
+    Gera um campo harmônico com base em um tônica e uma tonalidade.
 
     Parameters:
-        tonica: Primeiro grau do campo harmonico    
-        tonalidade: Tonalidade para o campo. Ex: maior, menor, etc...
-    
+        tonica: Primeiro grau do campo harmônico.
+        tonalidade: tonalidade para o campo. Ex: maior, menor, etc...
+
     Returns:
-        Um campo harmonico
+        Um campo harmônico.
 
     Examples:
         >>> campo_harmonico('c', 'maior')
-        {'acordes': ['C', 'Dm', 'Em', 'F', 'G', 'Am', 'B°']
-        'graus': ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII°']}
-       
+        {'acordes': ['C', 'Dm', 'Em', 'F', 'G', 'Am', 'B°'], 'graus': ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°']}
+
         >>> campo_harmonico('c', 'menor')
-        {'acordes': ['Cm', 'D°', 'D#', 'Fm', 'Gm', 'G#', 'A#']
-        'graus': ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII']}
+        {'acordes': ['Cm', 'D°', 'D#', 'Fm', 'Gm', 'G#', 'A#'], 'graus': ['i', 'ii°', 'III', 'iv', 'v', 'VI', 'VII']}
     """
     notas, _graus = escala(tonica, tonalidade).values()
     acordes = [_triade_na_escala(nota, notas) for nota in notas]
-    graus = [_converte_graus(acorde, grau) for acorde, grau in zip(acordes, _graus)
-            ]
+    graus = [
+        _converte_graus(acorde, grau) for acorde, grau in zip(acordes, _graus)
+    ]
 
     return {'acordes': acordes, 'graus': graus}

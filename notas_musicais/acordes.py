@@ -5,6 +5,7 @@ O módulo de acordes conta com funções e ferramentas necessárias para a gera�
 """
 from notas_musicais.escalas import NOTAS, escala
 
+
 def _menor(cifra):
     nota, _ = cifra.split('m')
 
@@ -13,13 +14,14 @@ def _menor(cifra):
         notas = [tonica, terca, semitom(quinta, intervalo=1)]
         graus = ['I', 'III-', 'V+']
 
-    else:   
+    else:
         notas = triade(nota, 'menor')
         graus = ['I', 'III-', 'V']
-        
+
     return notas, graus
 
-def semitom(nota, *, intervalo: int) -> str:
+
+def semitom(nota: str, *, intervalo: int) -> str:
     """
     Calcula a distância em semitons para uma outra nota usando intervalos.
 
@@ -65,16 +67,17 @@ def triade(nota, tonalidade) -> list[str]:
 
     return [notas_da_escala[grau] for grau in graus]
 
+
 def acorde(cifra: str) -> dict[str, list[str]]:
     """
-    Gera as notas de um acorde partindo de uma cifra
+    Gera as notas de um acorde partindo de uma cifra.
 
-    Parameter:
-        cifra: Um acorde em forma de cifra
+    Parameters:
+        cifra: Um acorde em forma de cifra.
 
     Returns:
-        Um dicionario com as notas e os graus correspondentes
-    
+        Um dicionário com as notas e os graus correpondes a escala maior.
+
     Examples:
         >>> acorde('C')
         {'notas': ['C', 'E', 'G'], 'graus': ['I', 'III', 'V']}
@@ -87,13 +90,15 @@ def acorde(cifra: str) -> dict[str, list[str]]:
 
         >>> acorde('C+')
         {'notas': ['C', 'E', 'G#'], 'graus': ['I', 'III', 'V+']}
+
+        >>> acorde('Cm+')
+        {'notas': ['C', 'D#', 'G#'], 'graus': ['I', 'III-', 'V+']}
     """
-    
     if 'm' in cifra:
         notas, graus = _menor(cifra)
 
     elif '°' in cifra:
-        nota, _ = cifra.split('m')
+        nota, _ = cifra.split('°')
         tonica, terca, quinta = triade(nota, 'menor')
         notas = [tonica, terca, semitom(quinta, intervalo=-1)]
         graus = ['I', 'III-', 'V-']
@@ -104,9 +109,8 @@ def acorde(cifra: str) -> dict[str, list[str]]:
         notas = [tonica, terca, semitom(quinta, intervalo=+1)]
         graus = ['I', 'III', 'V+']
 
-
     else:
         notas = triade(cifra, 'maior')
         graus = ['I', 'III', 'V']
 
-    return {'notas': notas, 'graus': ['I', 'III', 'V']}
+    return {'notas': notas, 'graus': graus}
